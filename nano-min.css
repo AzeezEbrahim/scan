@@ -1,0 +1,449 @@
+/*! Pickr 1.5.1 MIT | https://github.com/Simonwep/pickr */
+.pickr {
+  position: relative;
+  overflow: visible;
+  transform: translateY(0);
+  display: inline-block;
+  white-space: initial;
+  margin-right: 4px;
+  top: -5px;
+}
+
+.pickr * {
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+}
+
+.pickr .pcr-button {
+  min-height: initial;
+  min-width: initial;
+  padding: 0;
+  position: relative;
+  height: 13px;
+  width: 13px;
+  cursor: pointer;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+  border-radius: 4px;
+  background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" stroke="%2342445A" stroke-width="5px" stroke-linecap="round"><path d="M45,45L5,5"></path><path d="M45,5L5,45"></path></svg>') no-repeat 50%;
+  background-size: 0;
+  transition: all .3s;
+  transform: translateY(2px);
+  border: 0;
+  vertical-align: initial;
+}
+
+@-moz-document url-prefix() {
+  .pickr {
+    top: -7px;
+  }
+}
+
+.pickr .pcr-button:before {
+  background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="silver" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+  background-size: 10px;
+  z-index: -1;
+  z-index: auto;
+}
+
+.pickr .pcr-button:after,.pickr .pcr-button:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+  border: 1px solid rgba(204, 204, 204, .3);
+  box-sizing: border-box;
+}
+
+.pickr .pcr-button:after {
+  transition: background .3s;
+  background: currentColor;
+}
+
+.pickr .pcr-button.clear {
+  background-size: 70%;
+}
+
+.pickr .pcr-button.clear:before {
+  opacity: 0;
+}
+
+.pickr .pcr-button.clear:focus {
+  box-shadow: 0 0 0 1px hsla(0,0%,100%,.85),0 0 0 3px currentColor;
+}
+
+.pickr .pcr-button.disabled {
+  cursor: not-allowed;
+}
+
+.pcr-app *,.pickr * {
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+}
+
+.pcr-app button.pcr-active,
+.pcr-app button:focus,
+.pcr-app input.pcr-active,
+.pcr-app input:focus,
+.pickr button.pcr-active,
+.pickr button:focus,
+.pickr input.pcr-active,
+.pickr input:focus,
+.pickr button:hover {
+  box-shadow: 0 0 0 1px hsla(0,0%,100%,.85),0 0 0 3px currentColor;
+}
+
+.pcr-app .pcr-palette,.pcr-app .pcr-slider,.pickr .pcr-palette,.pickr .pcr-slider {
+  transition: box-shadow .3s;
+}
+
+.pcr-app .pcr-palette:focus,.pcr-app .pcr-slider:focus,.pickr .pcr-palette:focus,.pickr .pcr-slider:focus {
+  box-shadow: 0 0 0 1px hsla(0,0%,100%,.85),0 0 0 3px rgba(0,0,0,.25);
+}
+
+.pcr-app {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: 2147483647;
+  border-radius: 6px;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s,visibility 0s .3s;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+  box-shadow: 0 2.4px 24px 0 rgba(0,0,0,.1),0 0 16px 0 rgba(0,0,0,.03);
+  left: 0;
+  top: 0;
+}
+
+.pcr-app.visible {
+  transition: opacity .3s;
+  visibility: visible;
+  opacity: 1;
+  cursor: default;
+}
+
+.pcr-app .pcr-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 9.6px;
+}
+
+.pcr-app .pcr-swatches.pcr-last {
+  margin: 0;
+}
+
+@supports (display:grid) {
+  .pcr-app .pcr-swatches {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, 29.8px);
+  }
+}
+
+.pcr-app .pcr-swatches>button {
+  min-width: initial;
+  min-height: initial;
+  padding: 0;
+  border: initial;
+  font-size: 16px;
+  position: relative;
+  width: 23px;
+  height: 23px;
+  border-radius: 2.4px;
+  cursor: pointer;
+  margin: 2.5px;
+  flex-shrink: 0;
+  justify-self: center;
+  transition: all .15s;
+  overflow: hidden;
+  background: transparent;
+  z-index: 1;
+}
+
+.pcr-app .pcr-swatches>button:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="silver" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+  background-size: 6px;
+  border-radius: 2.4px;
+  z-index: -1;
+}
+
+.pcr-app .pcr-swatches>button:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: currentColor;
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 2.4px;
+  box-sizing: border-box;
+}
+
+.pcr-app .pcr-swatches>button:hover {
+  -webkit-filter: brightness(1.05);
+  filter: brightness(1.05);
+}
+
+.pcr-app .pcr-interaction {
+  /*display: flex;
+  flex-wrap: wrap;
+  align-items: center;*/
+  margin: 0 -3.2px;
+}
+
+.pcr-app .pcr-interaction>* {
+  margin: 0 2.4px;
+}
+
+.pcr-app .pcr-interaction input {
+  min-width: initial;
+  min-height: initial;
+  border: initial;
+  letter-spacing: 0.84px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  color: #75797e;
+  background: #f1f3f4;
+  border-radius: 4px;
+  transition: all .15s;
+  padding: 5.4px 6px;
+  margin-top: 9px;
+  line-height: initial;
+  text-transform: initial;
+  font-weight: initial;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+  display: inline-block;
+}
+
+.pcr-app .pcr-interaction input:hover {
+  -webkit-filter: brightness(.975);
+  filter: brightness(.975);
+}
+
+.pcr-app .pcr-interaction input:focus {
+  box-shadow: 0 0 0 1px hsla(0,0%,100%,.85),0 0 0 2px #bdbdbd;
+}
+
+.pcr-app .pcr-interaction input.pcr-result {
+  height: initial;
+  color: #75797e;
+  text-align: left;
+  min-width: 96px;
+  transition: all .2s;
+  border-radius: 1.8px;
+  background: #f1f3f4;
+  cursor: text;
+  width: calc(100% - 4px);
+  border: 0;
+  font-size: 12px;
+  padding: 5.4px 6px;
+}
+
+.pcr-app .pcr-interaction input.pcr-result::-moz-selection {
+  background: #4285f4;
+  color: #fff;
+}
+
+.pcr-app .pcr-interaction input.pcr-result::selection {
+  background: #4285f4;
+  color: #fff;
+}
+
+.pcr-app .pcr-interaction .pcr-type.active {
+  color: #fff;
+  background: #838c95;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel,.pcr-app .pcr-interaction .pcr-clear,.pcr-app .pcr-interaction .pcr-save {
+  width: auto;
+  color: #fff;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel:hover,.pcr-app .pcr-interaction .pcr-clear:hover,.pcr-app .pcr-interaction .pcr-save:hover {
+  -webkit-filter: brightness(.925);
+  filter: brightness(.925);
+}
+
+.pcr-app .pcr-interaction .pcr-save {
+  background: #1a1c28;
+  width: calc(100% - 71px);
+}
+
+.pcr-app .pcr-interaction .pcr-cancel,.pcr-app .pcr-interaction .pcr-clear {
+  background: #f2f3f4;
+  color: #75797e;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel:focus,.pcr-app .pcr-interaction .pcr-clear:focus {
+  box-shadow: 0 0 0 1px hsla(0,0%,100%,.85),0 0 0 3px rgba(244,66,80,.75);
+}
+
+.pcr-app .pcr-selection .pcr-picker {
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  border: 2px solid #fff;
+  border-radius: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.pcr-app .pcr-selection .pcr-color-chooser,.pcr-app .pcr-selection .pcr-color-opacity,.pcr-app .pcr-selection .pcr-color-palette {
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+.pcr-app .pcr-selection .pcr-color-chooser:active,.pcr-app .pcr-selection .pcr-color-opacity:active,.pcr-app .pcr-selection .pcr-color-palette:active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.pcr-app[data-theme=nano] {
+  width: 228px;
+  max-width: 95vw;
+}
+
+.pcr-app[data-theme=nano] .pcr-swatches {
+  margin-top: 9.6px;
+  padding: 0 9.6px;
+}
+
+.pcr-app[data-theme=nano] .pcr-interaction {
+  padding: 0 9.6px 9.6px;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection {
+  display: grid;
+  grid-gap: .6em;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 5fr auto auto;
+  align-items: center;
+  height: 168px;
+  width: 100%;
+  align-self: flex-start;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-preview {
+  grid-area: 2/1/4/1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 9.6px;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-preview .pcr-last-color {
+  display: none;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-preview .pcr-current-color {
+  position: relative;
+  background: currentColor;
+  width: 32px;
+  height: 32px;
+  border-radius: 50em;
+  overflow: hidden;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-preview .pcr-current-color:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="silver" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+  background-size: 10px;
+  border-radius: 2.4px;
+  z-index: -1;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-palette {
+  grid-area: 1/1/2/3;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-palette .pcr-palette {
+  border-top-left-radius: 6px;
+   border-top-right-radius: 6px;
+  width: 100%;
+  height: 100%;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-palette .pcr-palette:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="silver" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+  background-size: 10px;
+  border-radius: 6px;
+  z-index: -1;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-chooser {
+  grid-area: 2/2/2/2;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-opacity {
+  grid-area: 3/2/3/2;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-chooser,.pcr-app[data-theme=nano] .pcr-selection .pcr-color-opacity {
+  height: .7em;
+  margin: 0 9.6px;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-chooser .pcr-picker,.pcr-app[data-theme=nano] .pcr-selection .pcr-color-opacity .pcr-picker {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-chooser .pcr-slider,.pcr-app[data-theme=nano] .pcr-selection .pcr-color-opacity .pcr-slider {
+  flex-grow: 1;
+  border-radius: 2px;
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-chooser .pcr-slider {
+  background: linear-gradient(90deg,red,#ff0,#0f0,#0ff,#00f,#f0f,red);
+}
+
+.pcr-app[data-theme=nano] .pcr-selection .pcr-color-opacity .pcr-slider {
+  background: linear-gradient(90deg,transparent,#000),url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="silver" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+  background-size: 100%, 10px;
+}
+
+.pcr-app .pcr-interaction input[value="HEXA"], .pcr-app .pcr-interaction input[value="RGBA"], .pcr-app .pcr-interaction input[value="HSLA"] {
+  padding: 3px 3px;
+  width: calc(33.3% - 8px);
+}
