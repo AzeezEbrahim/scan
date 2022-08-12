@@ -132,7 +132,7 @@ function drawCanvas () {
 
   // read out the image data from the canvas
   var imgData = ctx.getImageData(0, 0, width, height).data;
-  worker = new Worker("demo-build/worker.js");
+  worker = new Worker("https://cdn.jsdelivr.net/gh/AzeezEbrahim/scan/worker.js");
   worker.onmessage = receiveMessage;
   worker.postMessage({ 
     type: 'imgData',
