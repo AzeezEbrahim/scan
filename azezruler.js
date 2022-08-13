@@ -1,4 +1,4 @@
-var holder = document.querySelector('.measure');
+var holder = document.querySelector('.site-header');
 var threshold = 20;
 var data, width, height;
 var worker;
