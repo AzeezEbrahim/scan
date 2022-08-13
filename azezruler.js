@@ -1,4 +1,4 @@
-var holder = document.querySelector('.site-header');
+var holder = document.body;
 var threshold = 20;
 var data, width, height;
 var worker;
